@@ -3,9 +3,10 @@ import { useEffect, useState } from 'react';
 
 export default function MathBackground() {
   const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
-  const symbols = ['∑', 'π', '∫', '∞', '∆', 'Ω', 'θ', '√', '≈', '≠'];
+  const symbols = ['∑', 'π', '∫', '∞', '∆', 'Ω', 'θ', '√', '≈', '≠', '±', 'μ', 'λ'];
 
   useEffect(() => {
+    // Only run on the client side
     setWindowSize({ width: window.innerWidth, height: window.innerHeight });
     const handleResize = () => setWindowSize({ width: window.innerWidth, height: window.innerHeight });
     window.addEventListener('resize', handleResize);
@@ -15,26 +16,35 @@ export default function MathBackground() {
   if (windowSize.width === 0) return null;
 
   return (
-    <div className="fixed inset-0 overflow-hidden pointer-events-none z-[-1]">
-      {/* FIXED: Deep dark mode background with a radial glow */}
-      <div className="absolute inset-0 bg-slate-50 dark:bg-slate-950 transition-colors duration-500">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-100/40 via-slate-50 to-emerald-100/20 dark:from-indigo-900/10 dark:via-slate-950 dark:to-emerald-900/5"></div>
-      </div>
+    // FIXED: Changed z-[-1] to z-0 so it doesn't hide behind the root document
+    <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
       
-      {/* Floating Math Symbols */}
-      {[...Array(20)].map((_, i) => {
+      {/* Base Background Color */}
+      <div className="absolute inset-0 bg-slate-50 dark:bg-slate-950 transition-colors duration-500"></div>
+      
+      {/* High-Visibility Modern Mesh Gradients */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_var(--tw-gradient-stops))] from-indigo-300/40 via-transparent to-transparent dark:from-indigo-900/40"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,_var(--tw-gradient-stops))] from-emerald-300/30 via-transparent to-transparent dark:from-emerald-900/20"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-rose-200/40 via-transparent to-transparent dark:from-rose-900/20"></div>
+      
+      {/* Floating Math Symbols (Larger and Higher Opacity) */}
+      {[...Array(25)].map((_, i) => {
         const randomX = Math.random() * windowSize.width;
         const randomDelay = Math.random() * 10;
         const randomDuration = 15 + Math.random() * 20;
         const symbol = symbols[Math.floor(Math.random() * symbols.length)];
+        
+        // Randomly assign sizes so it feels deep and layered
+        const fontSize = Math.random() > 0.5 ? 'text-4xl' : 'text-6xl'; 
 
         return (
           <motion.div
             key={i}
-            initial={{ y: windowSize.height + 50, x: randomX, opacity: 0 }}
+            initial={{ y: windowSize.height + 100, x: randomX, opacity: 0 }}
             animate={{ 
-              y: -100, 
-              opacity: [0, 0.15, 0.15, 0],
+              y: -150, 
+              // INCREASED OPACITY: peaks at 30% instead of 10%
+              opacity: [0, 0.3, 0.3, 0], 
               rotate: 360 
             }}
             transition={{
@@ -43,7 +53,7 @@ export default function MathBackground() {
               delay: randomDelay,
               ease: "linear"
             }}
-            className="absolute text-3xl font-light text-indigo-900/10 dark:text-indigo-100/10 select-none"
+            className={`absolute ${fontSize} font-bold text-indigo-500/30 dark:text-indigo-400/20 select-none`}
           >
             {symbol}
           </motion.div>
