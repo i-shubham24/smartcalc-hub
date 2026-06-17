@@ -1,6 +1,6 @@
 # SmartCalc Hub 🧮
 
-[![Live Demo](https://img.shields.io/badge/demo-Live%20Link-emerald.svg)](https://your-vercel-url.vercel.app/)
+[![Live Demo](https://img.shields.io/badge/demo-Live%20Link-emerald.svg)](https://smartcalc-hub-dun.vercel.app/)
 [![React](https://img.shields.io/badge/react-%2320232a.svg?style=flat&logo=react&logoColor=%2361DAFB)](#)
 [![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=flat&logo=tailwind-css&logoColor=white)](#)
 [![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=flat&logo=vite&logoColor=white)](#)
